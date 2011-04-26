@@ -56,6 +56,33 @@ def search(request):
         }) for x in waypoints),
     )), mimetype='application/json')
 
+def place(request):
+    """
+    Return the 900913 coordinates for the given address.
+    Principally used to obtain the coords for a given address
+    to centre the map with.
+    """
+    import geopy
+    from django.contrib.gis.geos import GEOSGeometry
+
+    places = geopy.geocoders.Google().geocode(request.GET.get('address'), exactly_one=False)
+
+    dplaces = {}
+    for p in places:
+        P = 'POINT(' + str(p[1][1]) + ' ' + str(p[1][0]) + ')'
+        # SRID 4326 is the common latitude/longitude coords
+        pnt = GEOSGeometry(P, srid=4326)
+        pnt.transform(900913)
+        dplaces[p[0]] = pnt
+
+    return HttpResponse(simplejson.dumps(dict(
+        (key, {
+            'lat': value.x,
+            'lng': value.y,
+        }) for key, value in dplaces.iteritems())
+    ), mimetype='application/json')
+
+
 def upload(request):
     'Upload waypoints'
     # If the form contains an upload,
