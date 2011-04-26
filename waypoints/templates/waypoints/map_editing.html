@@ -1,0 +1,23 @@
+{% include 'gis/admin/osm.html' %}
+{% block extrainput %}
+<input id="{{id}}_help_input" type="text" name=""/>
+<div id="{{id}}_help_summary"></div>
+<script type="text/javascript">
+	django.jQuery('#{{id}}_help_input').keydown(function(evt) {
+		if (evt.target.value.length < 5)
+			return;
+		django.jQuery.ajax({
+			dataType: 'json',
+			url: 'http://localhost:8000/query?address=' + evt.target.value,
+			success: function(data, text, jqXHR) {
+				txt = "<ul>";
+				for (var p in data) {
+					txt += "<li>" + p + "</li>";
+				}
+				txt + "</ul>";
+				django.jQuery('#{{id}}_help_summary').html(txt);
+			}
+		});
+	});
+</script>
+{% endblock %}

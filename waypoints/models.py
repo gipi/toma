@@ -12,7 +12,11 @@ class Waypoint(models.Model):
     def __unicode__(self):
         return '%s %s %s' % (self.name, self.geometry.x, self.geometry.y)
 
+# http://docs.djangoproject.com/en/1.3/ref/contrib/gis/tutorial/#osmgeoadmin-intro
 class WaypointAdmin(admin.OSMGeoAdmin):
-	pass
+	default_lon = 855670.46847410582
+	default_lat = 5632636.8934435854
+	default_zoom = 14
+	map_template = 'waypoints/map_editing.html'
 
 admin.site.register(Waypoint, WaypointAdmin)
