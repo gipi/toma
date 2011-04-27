@@ -3,19 +3,32 @@
 <input id="{{id}}_help_input" type="text" name=""/>
 <div id="{{id}}_help_summary"></div>
 <script type="text/javascript">
+	// given the json return a list with which center the map
+	function generateAddressFromJSon(data) {
+		// TODO: append two buttons: one to center respect to this
+		// address and the other select this as correct address.
+		// The first will be a "mirino", the second a check.
+		txt = "<ul>";
+		for (var p in data) {
+			// FIXME: lat and lng are swapped ???
+			txt += "<li onclick='geodjango_geometry.map.setCenter( new OpenLayers.LonLat("+ data[p]["lat"] + ", " + data[p]["lng"]+ "));'>" + p + "</li>";
+		}
+		txt + "</ul>";
+
+		return txt;
+	}
+
 	django.jQuery('#{{id}}_help_input').keydown(function(evt) {
+		// TODO: better handling of updating
 		if (evt.target.value.length < 5)
 			return;
 		django.jQuery.ajax({
 			dataType: 'json',
 			url: 'http://localhost:8000/query?address=' + evt.target.value,
 			success: function(data, text, jqXHR) {
-				txt = "<ul>";
-				for (var p in data) {
-					txt += "<li>" + p + "</li>";
-				}
-				txt + "</ul>";
-				django.jQuery('#{{id}}_help_summary').html(txt);
+				django
+					.jQuery('#{{id}}_help_summary')
+					.html(generateAddressFromJSon(data));
 			}
 		});
 	});
