@@ -2,7 +2,7 @@
 from django.conf.urls.defaults import *
 
 
-urlpatterns = patterns('googlemaps.waypoints.views',
+urlpatterns = patterns('places.views',
     url(r'^$', 'index', name='waypoints-index'),
     url(r'^save$', 'save', name='waypoints-save'),
     url(r'^search$', 'search', name='waypoints-search'),

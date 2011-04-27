@@ -97,7 +97,7 @@ MIDDLEWARE_CLASSES = (
     'django.contrib.messages.middleware.MessageMiddleware',
 )
 
-ROOT_URLCONF = 'googlemaps.urls'
+ROOT_URLCONF = 'urls'
 
 TEMPLATE_DIRS = (
     fillPath('templates'),
@@ -113,7 +113,7 @@ INSTALLED_APPS = (
     'django.contrib.admin',
     'django.contrib.admindocs',
     'django.contrib.gis',
-    'googlemaps.waypoints',
+    'places',
 )
 
 # A sample logging configuration. The only tangible logging

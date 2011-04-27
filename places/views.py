@@ -12,23 +12,23 @@ import itertools
 import tempfile
 import os
 # Import custom modules
-from googlemaps.waypoints.models import Waypoint
-from googlemaps import settings
+from .models import Place
+import settings
 
 
 def index(request):
     'Display map'
-    waypoints = Waypoint.objects.order_by('name')
-    return render_to_response('waypoints/index.html', {
+    waypoints = Place.objects.order_by('name')
+    return render_to_response('places/index.html', {
         'waypoints': waypoints,
-        'content': render_to_string('waypoints/waypoints.html', {'waypoints': waypoints}),
+        'content': render_to_string('places/waypoints.html', {'waypoints': waypoints}),
     }, context_instance=RequestContext(request))
 
 def save(request):
     'Save waypoints'
     for waypointString in request.POST.get('waypointsPayload', '').splitlines():
         waypointID, waypointX, waypointY = waypointString.split()
-        waypoint = Waypoint.objects.get(id=int(waypointID))
+        waypoint = Place.objects.get(id=int(waypointID))
         waypoint.geometry.set_x(float(waypointX))
         waypoint.geometry.set_y(float(waypointY))
         waypoint.save()
@@ -42,11 +42,11 @@ def search(request):
     except:
         return HttpResponse(simplejson.dumps(dict(isOk=0, message='Could not parse search point')))
     # Search database
-    waypoints = Waypoint.objects.distance(searchPoint).order_by('distance')
+    waypoints = Place.objects.distance(searchPoint).order_by('distance')
     # Return
     return HttpResponse(simplejson.dumps(dict(
         isOk=1,
-        content=render_to_string('waypoints/waypoints.html', {
+        content=render_to_string('places/waypoints.html', {
             'waypoints': waypoints
         }),
         waypointByID=dict((x.id, {
@@ -101,7 +101,7 @@ def upload(request):
         waypointNames = layer.get_fields('name')
         waypointGeometries = layer.get_geoms()
         for waypointName, waypointGeometry in itertools.izip(waypointNames, waypointGeometries):
-            waypoint = Waypoint(name=waypointName, geometry=waypointGeometry.wkt)
+            waypoint = Place(name=waypointName, geometry=waypointGeometry.wkt)
             waypoint.save()
         # Clean up
         os.remove(targetPath)

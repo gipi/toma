@@ -8,5 +8,5 @@ import settings
 admin.autodiscover()
 urlpatterns = patterns('',
     (r'^admin/', include(admin.site.urls)),
-    (r'', include('googlemaps.waypoints.urls')),
+    (r'', include('places.urls')),
 )
