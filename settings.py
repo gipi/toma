@@ -130,3 +130,10 @@ LOGGING = {
         },
     }
 }
+
+
+try:
+    from local_settings import *
+except:
+    print 'fatal: Do you have a \'local_settings.py\' file?'
+    sys.exit(1)
