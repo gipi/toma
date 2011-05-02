@@ -96,13 +96,7 @@ $(document).ready(function () {
     activateWaypoints();
 });
 </script>
-<style>
-    body {font-family: sans-serif}
-    #map {width: 500px; height: 300px}
-    #waypoints {overflow: auto; width: 500px; height: 100px}
-    .linkOFF {color: darkblue}
-    .linkON {color: white; background-color: darkblue}
-</style>
+<link rel="stylesheet" href="{{STATIC_URL}}/base.css" type="text/css"/>
 </head>
 <body onload='initialize()'>
     <img id="logo" src="{{STATIC_URL}}/logo.png">
