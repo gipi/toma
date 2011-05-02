@@ -105,20 +105,10 @@ $(document).ready(function () {
 </style>
 </head>
 <body onload='initialize()'>
-    <form enctype="multipart/form-data" method=post action="{% url waypoints-upload %}">
-        {% csrf_token %}
-        <input type=file name=gpx>
-        <input type=submit value='Upload GPX'>
-    </form>
     <div id=map></div>
     <div id=waypoints>
         {{content}}
     </div>
-    <input id=saveWaypoints type=button value=Save disabled=disabled>
-    <br>
-    <br>
-    <br>
-    <input id=address value='Chicago, IL'> 
     <input id=searchWaypoints type=button value='Rank waypoints by distance from address'>
 </body>
 </html>
