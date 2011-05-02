@@ -31,7 +31,7 @@
 			return;
 		django.jQuery.ajax({
 			dataType: 'json',
-			url: 'query?address=' + evt.target.value,
+			url: '/query?address=' + evt.target.value,
 			success: function(data, text, jqXHR) {
 				django
 					.jQuery('#{{id}}_help_summary')
