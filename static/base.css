@@ -3,3 +3,6 @@ body {font-family: sans-serif}
 #waypoints {overflow: auto; width: 500px; height: 100px}
 .linkOFF {color: darkblue}
 .linkON {color: white; background-color: darkblue}
+#logo {
+	height:50px;
+}
