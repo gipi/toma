@@ -9,8 +9,8 @@ var map, marker, waypointByID = {}, currentObject, geocoder;
 
 function initialize() {
     map = new google.maps.Map(document.getElementById('map'), {
-        zoom: 5,
-        center: new google.maps.LatLng(41.879535, -87.624333),
+        zoom: 12,
+        center: new google.maps.LatLng( 45.04,7.67),
         mapTypeId: google.maps.MapTypeId.ROADMAP
     });
     geocoder = new google.maps.Geocoder();
