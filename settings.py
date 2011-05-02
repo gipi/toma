@@ -1,5 +1,5 @@
 # Import system modules
-import os
+import os,sys
 # Set paths
 fillPath = lambda x: os.path.join(os.path.dirname(__file__), x)
 
