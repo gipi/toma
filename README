@@ -1,0 +1,24 @@
+Installarlo su un sistema gentoo utilizzando un backend SQLite
+
+ # emerge proj geos python-dev
+
+siccome serve spatialite si deve abilitare l'overlay "sunrise"
+(tenete che bisogna abilitare subversion per layman come indicato
+dalla pagina di questo overlay <http://overlays.gentoo.org/proj/sunrise/wiki>).
+
+N.B: ricordarsi di attivare come USE flags sia geos che proj
+
+ # layman -a -f sunrise
+ # emerge spatialite
+
+Può esserci un problema per l'utilizzo delle estensioni con la
+libreria pysqlite
+
+	django.core.exceptions.ImproperlyConfigured: The pysqlite library does not support C extension loading. Both SQLite and pysqlite must be configured to allow the loading of extensions to use SpatiaLite.
+
+eseguire
+
+ (env) $ pip install --no-install pysqlite
+ (env) $ vim env/build/pysqlite/setup.cfg
+ [commenta la riga define=SQLITE_OMIT_LOAD_EXTENSION]
+ (env) $ pip install env/build/pysqlite/setup.py install
