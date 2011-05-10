@@ -1,12 +1,16 @@
 Installarlo su un sistema gentoo utilizzando un backend SQLite
 
- # emerge proj geos python-dev
+ # emerge proj geos gdal python-dev
 
 siccome serve spatialite si deve abilitare l'overlay "sunrise"
 (tenete che bisogna abilitare subversion per layman come indicato
 dalla pagina di questo overlay <http://overlays.gentoo.org/proj/sunrise/wiki>).
 
 N.B: ricordarsi di attivare come USE flags sia geos che proj
+
+ $ cat /etc/portage/package.use
+ sci-libs/gdal geos sqlite
+ dev-db/spatialite geos proj
 
  # layman -a -f sunrise
  # emerge spatialite
@@ -22,3 +26,16 @@ eseguire
  (env) $ vim env/build/pysqlite/setup.cfg
  [commenta la riga define=SQLITE_OMIT_LOAD_EXTENSION]
  (env) $ pip install env/build/pysqlite/setup.py install
+ (env) $ wget http://www.gaia-gis.it/spatialite/init_spatialite-2.3.sql.gz
+ (env) $ gunzip init_spatialite-2.3.sql.gz
+ (env) $ 
+
+Configurare il database nella seguente maniera
+ 
+	DATABASES = {
+	    'default': {
+		 'ENGINE': 'django.contrib.gis.db.backends.spatialite',
+		 'NAME': 'geodjango',
+		 'USER': 'geo',
+	     }
+	}
