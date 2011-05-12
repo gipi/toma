@@ -100,6 +100,7 @@ $(document).ready(function () {
 </head>
 <body onload='initialize()'>
     <img id="logo" src="{{STATIC_URL}}/logo.png">
+    <a href="{% url gr-new %}">crea una geostanza</a>
     <div id=map></div>
     <div id=waypoints>
         {{content}}

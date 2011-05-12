@@ -24,6 +24,32 @@ def index(request):
         'content': render_to_string('places/waypoints.html', {'waypoints': waypoints}),
     }, context_instance=RequestContext(request))
 
+
+
+def gr(request, id):
+    """
+    Geo-Room: shows a group of users on the map
+    updating their position.
+    """
+    return render_to_response(
+        'places/gr.html',
+        {},
+        context_instance=RequestContext(request))
+
+def gr_new(request):
+    """
+    Create a new geo room with a new available code
+    and redirect to that.
+    """
+    import random
+    choices = "abcdefghilmnopqrstuvzABCDEFGHILMNOPQRST1234567890"
+
+    id = []
+    for i in range(5):
+        id.append(random.choice(choices))
+
+    return HttpResponseRedirect(reverse('gr', args=["".join(id)]))
+
 def save(request):
     'Save waypoints'
     for waypointString in request.POST.get('waypointsPayload', '').splitlines():
