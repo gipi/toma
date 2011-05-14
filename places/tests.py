@@ -1,8 +1,16 @@
 from django.test import TestCase
 from django.core.urlresolvers import reverse
 
+from .models import GeoRoom
 
 class SimpleTest(TestCase):
+    def test_new_gr(self):
+        response = self.client.get(reverse('gr-new'))
+
+        gr = GeoRoom.objects.all()[0]
+
+        self.assertRedirects(response, reverse('gr', args=[gr.idx]))
+
     def test_404_gr(self):
         """
         If there isn't the geo room requested then throw a 404.

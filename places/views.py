@@ -72,7 +72,13 @@ def gr_new(request):
     for i in range(settings.GEO_ROOM_ID_LENGTH):
         id.append(random.choice(choices))
 
-    return HttpResponseRedirect(reverse('gr', args=["".join(id)]))
+    gr_id = "".join(id)
+
+    # TODO: check if exists yet
+    gr = GeoRoom(idx=gr_id)
+    gr.save()
+
+    return HttpResponseRedirect(reverse('gr', args=[gr_id]))
 
 def save(request):
     'Save waypoints'
