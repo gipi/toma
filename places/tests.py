@@ -1,23 +1,18 @@
-"""
-This file demonstrates two different styles of tests (one doctest and one
-unittest). These will both pass when you run "manage.py test".
-
-Replace these with more appropriate tests for your application.
-"""
-
 from django.test import TestCase
+from django.core.urlresolvers import reverse
+
 
 class SimpleTest(TestCase):
-    def test_basic_addition(self):
+    def test_set_name_get(self):
         """
-        Tests that 1 + 1 always equals 2.
+        Check that the GET method is not allowed here
         """
-        self.failUnlessEqual(1 + 1, 2)
+        response = self.client.get(reverse('gr-set-name'))
+        self.failUnlessEqual(response.status_code, 405)
 
-__test__ = {"doctest": """
-Another way to test that 1 + 1 is equal to 2.
-
->>> 1 + 1 == 2
-True
-"""}
-
+    def test_set_name(self):
+        response = self.client.post(
+                "/gr/name/", 
+                '{"name": "miao"}',
+                content_type="application/json")
+        self.failUnlessEqual(response.status_code, 200)

@@ -14,6 +14,7 @@ class GRUser(models.Model):
     http://yuji.wordpress.com/2008/05/14/django-attatching-arbitrary-data-to-anonymous-sessions/
     """
     name = models.CharField(max_length=10)
+    session_key = models.CharField(max_length=40)
 
 class GRPlace(models.Model):
     """

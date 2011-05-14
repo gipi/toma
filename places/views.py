@@ -1,6 +1,8 @@
 # Import django modules
-from django.http import HttpResponse, HttpResponseRedirect
+from django.http import HttpResponse, \
+        HttpResponseRedirect, HttpResponseNotAllowed
 from django.shortcuts import render_to_response
+from django.views.decorators.csrf import csrf_exempt
 from django.template import RequestContext
 from django.template.loader import render_to_string
 from django.core.urlresolvers import reverse
@@ -12,7 +14,7 @@ import itertools
 import tempfile
 import os
 # Import custom modules
-from .models import Place
+from .models import Place, GRUser, GRPlace, GeoRoom
 import settings
 
 
@@ -35,6 +37,26 @@ def gr(request, id):
         'places/gr.html',
         {},
         context_instance=RequestContext(request))
+
+@csrf_exempt
+def gr_set_name(request):
+    """
+    Set the name of the user with the given session_key.
+    """
+    if request.method == "GET":
+        return HttpResponseNotAllowed(['POST'])
+
+    # FIXME: understand if this is a security problem
+    data = simplejson.loads(request.raw_post_data)
+
+    gruser, created = GRUser.objects.get_or_create(
+            session_key=request.session.session_key,
+        )
+    gruser.name = data["name"]
+    gruser.save()
+
+    return HttpResponse(simplejson.dumps(dict(response=0)),
+            mimetype="application/json")
 
 def gr_new(request):
     """
