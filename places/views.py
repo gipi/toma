@@ -45,7 +45,7 @@ def gr_new(request):
     choices = "abcdefghilmnopqrstuvzABCDEFGHILMNOPQRST1234567890"
 
     id = []
-    for i in range(5):
+    for i in range(settings.GEO_ROOM_ID_LENGTH):
         id.append(random.choice(choices))
 
     return HttpResponseRedirect(reverse('gr', args=["".join(id)]))

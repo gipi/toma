@@ -2,6 +2,8 @@
 from django.contrib.gis.db import models
 from django.contrib.gis import admin
 
+import settings
+
 
 class GRUser(models.Model):
     """
@@ -26,6 +28,7 @@ class GeoRoom(models.Model):
     """
     Represents a group of places where the users are.
     """
+    idx = models.CharField(max_length=settings.GEO_ROOM_ID_LENGTH)
     places = models.ManyToManyField(GRPlace)
 
 class Place(models.Model):

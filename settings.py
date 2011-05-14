@@ -131,6 +131,7 @@ LOGGING = {
     }
 }
 
+GEO_ROOM_ID_LENGTH = 5
 
 try:
     from local_settings import *
