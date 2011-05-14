@@ -138,3 +138,7 @@ try:
 except:
     print 'fatal: Do you have a \'local_settings.py\' file?'
     sys.exit(1)
+
+# this is necessary otherwise anonymous users
+# haven't an unique session_key
+SESSION_SAVE_EVERY_REQUEST = True
