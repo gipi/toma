@@ -13,6 +13,7 @@ import simplejson
 import itertools
 import tempfile
 import os
+from PIL import Image
 # Import custom modules
 from .models import Place, GRUser, GRPlace, GeoRoom
 import settings
@@ -79,6 +80,24 @@ def gr_new(request):
     gr.save()
 
     return HttpResponseRedirect(reverse('gr', args=[gr_id]))
+
+def gr_marker(request, name):
+    """
+    Create a marker with the user name
+    """
+    import ImageFont, ImageDraw
+
+    print 'name:', name
+
+    font = ImageFont.load_default()
+    response = HttpResponse(mimetype='image/png')
+    im = Image.new("RGBA", font.getsize(name), (255, 255, 255, 0))
+    draw = ImageDraw.Draw(im)
+    draw.text((0,0), name, font=font, fill=(0,0,0))
+
+    im.save(response, "png")
+
+    return response
 
 def save(request):
     'Save waypoints'

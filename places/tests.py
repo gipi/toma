@@ -31,3 +31,7 @@ class SimpleTest(TestCase):
                 '{"name": "miao"}',
                 content_type="application/json")
         self.failUnlessEqual(response.status_code, 200)
+
+    def test_marker(self):
+        response = self.client.get(reverse('gr-marker', args=['pino']))
+        self.failUnlessEqual(response.status_code, 200)
