@@ -1,7 +1,7 @@
 # Import django modules
 from django.http import HttpResponse, \
         HttpResponseRedirect, HttpResponseNotAllowed
-from django.shortcuts import render_to_response
+from django.shortcuts import render_to_response, get_object_or_404
 from django.views.decorators.csrf import csrf_exempt
 from django.template import RequestContext
 from django.template.loader import render_to_string
@@ -33,6 +33,8 @@ def gr(request, id):
     Geo-Room: shows a group of users on the map
     updating their position.
     """
+    gr = get_object_or_404(GeoRoom, idx=id)
+
     return render_to_response(
         'places/gr.html',
         {},
