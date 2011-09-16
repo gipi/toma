@@ -22,13 +22,13 @@ libreria pysqlite
 
 eseguire
 
- (env) $ pip install --no-install pysqlite
- (env) $ vim env/build/pysqlite/setup.cfg
+ (env) $ pip install --no-install pysqlite # oppure wget http://pysqlite.googlecode.com/files/pysqlite-2.6.0.tar.gz
+ (env) $ vim env/build/pysqlite/setup.cfg  #        cd pysqlite && vi setup.cfg
  [commenta la riga define=SQLITE_OMIT_LOAD_EXTENSION]
- (env) $ pip install env/build/pysqlite/setup.py install
+ (env) $ pip install env/build/pysqlite/setup.py install # python setup.py install
  (env) $ wget http://www.gaia-gis.it/spatialite/init_spatialite-2.3.sql.gz
  (env) $ gunzip init_spatialite-2.3.sql.gz
- (env) $ 
+ (env) $ spatialite geodjango.db < init_spatialite-2.3.sql
 
 Configurare il database nella seguente maniera
  
