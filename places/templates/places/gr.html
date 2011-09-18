@@ -86,7 +86,7 @@
                                     addMarker(
                                         map,
                                         new google.maps.LatLng(position.coords.latitude, position.coords.longitude));
-                                }, function(err) {alert("Error: " + e)}, {
+                                }, function(err) {alert("Error: " + err.message)}, {
                             enableHighAccuracy: true,
                             maximumAge: 30000,
                             timeout: 27000
