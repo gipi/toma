@@ -1,3 +1,6 @@
+INSTALLAZIONE
+-------------
+
 Installarlo su un sistema gentoo utilizzando un backend SQLite
 
  # emerge proj geos gdal python-dev
@@ -39,3 +42,13 @@ Configurare il database nella seguente maniera
 		 'USER': 'geo',
 	     }
 	}
+
+
+PRINCIPI
+--------
+
+Generalmente per l'identificazione dell'utente sulla piattaforma
+si usa la session_key contenuta nel cookie, mentre per identificare
+la geo-room da cui provengono le chiamate AJAX si usa l'header HTTP
+chiamato HTTP_REFERER. Utilizzando l'https la sicurezza dei dati
+comunicati dovrebbe essere preservata.

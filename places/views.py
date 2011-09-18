@@ -15,6 +15,10 @@ import itertools
 import tempfile
 import os
 from PIL import Image
+# The urlparse module is renamed to urllib.parse in Python 3.0.
+# The 2to3 tool will automatically adapt imports when converting your sources to 3.0.
+from urlparse import urlparse
+
 # Import custom modules
 from .models import Place, GRUser, GRPlace, GeoRoom
 import settings
@@ -76,6 +80,42 @@ def gr_set_name(request):
     return HttpResponse(simplejson.dumps(dict(response=0)),
             mimetype="application/json")
 
+@csrf_exempt
+def gr_set_position(request):
+    """
+    Set the position of the user with the given session_key
+    """
+    try:
+        referer = request.META['HTTP_REFERER']
+        position = request.POST['position']
+    except KeyError:
+        return HttpResponseBadRequest()
+
+    pieces = urlparse(referer)[2].split('/')
+
+    if pieces[1] != "gr":
+        return HttpResponseBadRequest()
+
+    # check if geo-room and user exist
+    try:
+        gr, gruser = get_room_and_user(pieces[2], request.session.session_key)
+    except ObjectDoesNotExist:
+        return HttpResponseBadRequest()
+
+    p = position.split(":")
+
+    place = GRPlace.objects.create(user=gruser, position=Point(float(p[0]), float(p[1])))
+
+    return HttpResponse(simplejson.dumps(dict(response=0)),
+            mimetype="application/json")
+
+# decorator?
+def get_room_and_user(gr_id, session_key):
+    # check if geo-room and user exist
+    gr = GeoRoom.objects.get(idx=gr_id)
+    gruser = GRUser.objects.get(session_key=session_key)
+
+    return gr, gruser
 def gr_new(request):
     """
     Create a new geo room with a new available code
