@@ -25,6 +25,8 @@ class GRPlace(models.Model):
     position = models.PointField(srid=4326)
     time = models.DateTimeField(auto_now=True)
 
+    objects = models.GeoManager()
+
 class GeoRoom(models.Model):
     """
     Represents a group of users.
