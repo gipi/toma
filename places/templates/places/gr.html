@@ -2,6 +2,24 @@
     <head>
         <meta name="viewport"
 			content="initial-scale=1.0, user-scalable=no" content="width=device-width" />
+	<style>
+		#map_canvas {height:100%;}
+		#handle {
+			display:inline;
+			position:relative;
+			bottom:20px;
+			left:50%;
+			padding:10px;
+			background:#ffffff;
+		}
+
+		#container_ui {
+			/* the UI for various buttons occupies 
+			   as much space as the map (?)
+			*/
+			height:100%;
+		}
+	</style>
         <script type="text/javascript" src="http://maps.google.com/maps/api/js?sensor=false"></script>
         <script>//http://code.google.com/p/miniajax/
                 function $(e){if(typeof e=='string')e=document.getElementById(e);return e};
@@ -18,6 +36,20 @@
                         ajax.submit=function(url,elm,frm){var e=$(elm);var f=function(r){e.innerHTML=r};ajax.post(url,f,ajax.serialize(frm))};
         </script>
         <script type="text/javascript">
+                var gHandleY = 0;
+                var isOpened = false;
+                // http://stackoverflow.com/questions/442404/dynamically-retrieve-html-element-x-y-position-with-javascript
+                function getOffset( el ) {
+                    var _x = 0;
+                    var _y = 0;
+                    while( el && !isNaN( el.offsetLeft ) && !isNaN( el.offsetTop ) ) {
+                        _x += el.offsetLeft - el.scrollLeft;
+                        _y += el.offsetTop - el.scrollTop;
+                        el = el.offsetParent;
+                    }
+                    return { top: _y, left: _x };
+                }
+
                 function initialize() {
                     var latlng = new google.maps.LatLng(-34.397, 150.644);
                     var myOptions = {
@@ -60,10 +92,19 @@
                             timeout: 27000
                         });
                     }
+                    gHandleY = getOffset(document.getElementById('handle')).top;
+                }
+                function handleHandle() {
+                        window.scrollTo(0, isOpened ? 0 : gHandleY);
+                        isOpened = !isOpened;
                 }
             </script>
         </head>
     <body onload="initialize()">
-        <div id="map_canvas" style="width:100%; height:100%"></div>
+	    <div id="map_canvas"></div>
+	    <div id="handle" onclick="handleHandle()">handle</div>
+	    <div id="container_ui">
+		    <div>Some nice interface stuffs</div>
+	    </div><!-- /end #container_ui -->
     </body>
 </html>
