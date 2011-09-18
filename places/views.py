@@ -116,6 +116,37 @@ def get_room_and_user(gr_id, session_key):
     gruser = GRUser.objects.get(session_key=session_key)
 
     return gr, gruser
+
+@csrf_exempt
+def gr_get_users(request):
+    """
+    Returns in a JSON the users in this GeoRoom and their position.
+
+    The GeoRoom is taken by the HTTP_REFERER and a check is done
+    if the user associated with the session_key is allowed to
+    be informed about that GeoRoom.
+    """
+    try:
+        referer = request.META['HTTP_REFERER']
+    except KeyError:
+        return HttpResponseBadRequest()
+
+    pieces = urlparse(referer)[2].split('/')
+
+    if pieces[1] != "gr":
+        return HttpResponseBadRequest()
+
+    # check if geo-room and user exist
+    try:
+        gr, gruser = get_room_and_user(pieces[2], request.session.session_key)
+    except ObjectDoesNotExist:
+        return HttpResponseBadRequest()
+
+    grusers = gr.users.all()
+
+    return HttpResponse(simplejson.dumps(dict(response=0)),
+            mimetype="application/json")
+
 def gr_new(request):
     """
     Create a new geo room with a new available code
