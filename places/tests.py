@@ -1,15 +1,25 @@
 from django.test import TestCase
 from django.core.urlresolvers import reverse
 
-from .models import GeoRoom
+from .models import GeoRoom, GRUser
 
 class SimpleTest(TestCase):
     def test_new_gr(self):
+        old_gr_len = len(GeoRoom.objects.all())
+        old_gu_len = len(GRUser.objects.all())
+
+        # call for a new georoom
         response = self.client.get(reverse('gr-new'))
 
-        gr = GeoRoom.objects.all()[0]
+        # check is created the room
+        gr = GeoRoom.objects.all()
+        self.assertEqual(len(gr), old_gr_len + 1)
 
-        self.assertRedirects(response, reverse('gr', args=[gr.idx]))
+        self.assertRedirects(response, reverse('gr', args=[gr[0].idx]))
+
+        # and the user associated
+        gu = GRUser.objects.all()
+        self.assertEqual(len(gu), old_gu_len + 1)
 
     def test_404_gr(self):
         """

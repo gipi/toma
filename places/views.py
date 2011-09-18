@@ -1,6 +1,6 @@
 # Import django modules
 from django.http import HttpResponse, \
-        HttpResponseRedirect, HttpResponseNotAllowed
+        HttpResponseRedirect, HttpResponseNotAllowed, HttpResponseBadRequest
 from django.shortcuts import render_to_response, get_object_or_404
 from django.views.decorators.csrf import csrf_exempt
 from django.template import RequestContext
@@ -8,6 +8,7 @@ from django.template.loader import render_to_string
 from django.core.urlresolvers import reverse
 from django.contrib.gis.geos import Point
 from django.contrib.gis.gdal import DataSource
+from django.core.exceptions import ObjectDoesNotExist
 # Import system modules
 import simplejson
 import itertools
@@ -33,8 +34,18 @@ def gr(request, id):
     """
     Geo-Room: shows a group of users on the map
     updating their position.
+
+    The Geo-Room MUST be created with the gr_new.
+
+    Check if the user is already present in this georoom
+    otherwise register inside it.
     """
     gr = get_object_or_404(GeoRoom, idx=id)
+    gruser, created = GRUser.objects.get_or_create(
+            session_key=request.session.session_key,
+        )
+
+    gr.users.add(gruser)
 
     return render_to_response(
         'places/gr.html',
@@ -45,6 +56,8 @@ def gr(request, id):
 def gr_set_name(request):
     """
     Set the name of the user with the given session_key.
+
+    If the user doesn't exist then throw an error.
     """
     if request.method == "GET":
         return HttpResponseNotAllowed(['POST'])
@@ -52,9 +65,11 @@ def gr_set_name(request):
     # FIXME: understand if this is a security problem
     data = simplejson.loads(request.raw_post_data)
 
-    gruser, created = GRUser.objects.get_or_create(
-            session_key=request.session.session_key,
-        )
+    try:
+        gruser = GRUser.objects.get(session_key=request.session.session_key)
+    except ObjectDoesNotExist, e:
+        return HttpResponseBadRequest()
+
     gruser.name = data["name"]
     gruser.save()
 
