@@ -16,6 +16,9 @@ class GRUser(models.Model):
     name = models.CharField(max_length=10)
     session_key = models.CharField(max_length=40)
 
+    def __unicode__(self):
+	    return '%s' % self.session_key
+
 class GRPlace(models.Model):
     """
     This contains the position at given time of
@@ -33,6 +36,9 @@ class GeoRoom(models.Model):
     """
     idx = models.CharField(max_length=settings.GEO_ROOM_ID_LENGTH)
     users = models.ManyToManyField(GRUser)
+
+    def __unicode__(self):
+	    return "%s" % self.idx
 
 class Place(models.Model):
     name = models.CharField(max_length=32)
@@ -60,4 +66,6 @@ class GeoRoomAdmin(admin.ModelAdmin):
 
 
 admin.site.register(Place, PlaceAdmin)
+admin.site.register(GRUser)
+admin.site.register(GRPlace)
 admin.site.register(GeoRoom, GeoRoomAdmin)
