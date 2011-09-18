@@ -27,10 +27,10 @@ class GRPlace(models.Model):
 
 class GeoRoom(models.Model):
     """
-    Represents a group of places where the users are.
+    Represents a group of users.
     """
     idx = models.CharField(max_length=settings.GEO_ROOM_ID_LENGTH)
-    places = models.ManyToManyField(GRPlace)
+    users = models.ManyToManyField(GRUser)
 
 class Place(models.Model):
     name = models.CharField(max_length=32)
@@ -41,6 +41,7 @@ class Place(models.Model):
     def __unicode__(self):
         return '%s %s %s' % (self.name, self.geometry.x, self.geometry.y)
 
+############ ADMIN STUFFS #########################
 # http://docs.djangoproject.com/en/1.3/ref/contrib/gis/tutorial/#osmgeoadmin-intro
 class PlaceAdmin(admin.OSMGeoAdmin):
 	default_lon = 855670.46847410582
@@ -48,4 +49,13 @@ class PlaceAdmin(admin.OSMGeoAdmin):
 	default_zoom = 14
 	map_template = 'places/map_editing.html'
 
+class GeoRoomAdmin(admin.ModelAdmin):
+	list_display = ('idx', '_users_number')
+
+	def _users_number(self, obj):
+		return '%d' % len(obj.users.all())
+	_users_number.short_description = '# users'
+
+
 admin.site.register(Place, PlaceAdmin)
+admin.site.register(GeoRoom, GeoRoomAdmin)
