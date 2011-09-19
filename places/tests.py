@@ -1,9 +1,24 @@
 from django.test import TestCase
 from django.core.urlresolvers import reverse
+from django.conf import settings
 
 from .models import GeoRoom, GRUser
 
 class SimpleTest(TestCase):
+    def _get_post_from_georoom(self, url, gr_id, session_key, data={}):
+        """
+        Do an ajax POSTrequest from a georoom (emulating a browser)
+        and return a response.
+        """
+        # this is needed in order to set the session_key correctly
+        self.client.cookies[settings.SESSION_COOKIE_NAME] = session_key
+
+        return self.client.post(
+                url, 
+                data,
+                content_type="application/json",
+                HTTP_REFERER=reverse('gr', args=[gr_id]))
+
     def test_new_gr(self):
         old_gr_len = len(GeoRoom.objects.all())
         old_gu_len = len(GRUser.objects.all())
