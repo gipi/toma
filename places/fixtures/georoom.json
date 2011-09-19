@@ -1,0 +1,143 @@
+[
+{
+    "pk": "8ec3918683c5a246b397f4cab14ae3df", 
+    "model": "sessions.session", 
+    "fields": {
+      "expire_date": "2011-10-02 11:11:55", 
+      "session_data": "NDIzMjhkYjkzZjhiNWUyZWQyMjU3MzFiNmJiMDUwYWU2Nzc4NTczZjqAAn1xAS4=\n"
+    }
+  }, 
+  {
+    "pk": "e9aaa32313736c4093c7fe3fcba4ebd9", 
+    "model": "sessions.session", 
+    "fields": {
+      "expire_date": "2011-10-02 11:24:22", 
+      "session_data": "OTVlMGI5YjVmYzE5ZmE1OWUwZjExNDJiY2RjMTYyMDY0ZjU5YzdlYjqAAn1xAShVDV9hdXRoX3Vz\nZXJfaWRxAksBVRJfYXV0aF91c2VyX2JhY2tlbmRxA1UpZGphbmdvLmNvbnRyaWIuYXV0aC5iYWNr\nZW5kcy5Nb2RlbEJhY2tlbmRxBHUu\n"
+    }
+  }, 
+  {
+    "pk": "59f4da6f260adf9c69fac9eafbb60401", 
+    "model": "sessions.session", 
+    "fields": {
+      "expire_date": "2011-10-03 12:51:10", 
+      "session_data": "OTE1NjRkNmIyNTlmYTRkNDBiNDhiYmI2ODE5MmFhNzVjZjI4ZTk1MjqAAn1xAShVEl9hdXRoX3Vz\nZXJfYmFja2VuZHECVSlkamFuZ28uY29udHJpYi5hdXRoLmJhY2tlbmRzLk1vZGVsQmFja2VuZHED\nVQ1fYXV0aF91c2VyX2lkcQRLAXUu\n"
+    }
+  },
+  {
+    "pk": 1, 
+    "model": "places.gruser", 
+    "fields": {
+      "session_key": "50b561e5aa9e39e2ebc678af2bdeb6c3", 
+      "name": ""
+    }
+  }, 
+  {
+    "pk": 2, 
+    "model": "places.gruser", 
+    "fields": {
+      "session_key": "4af5cba7a0e5adfb5b49db2b3937d67e", 
+      "name": ""
+    }
+  }, 
+  {
+    "pk": 3, 
+    "model": "places.gruser", 
+    "fields": {
+      "session_key": "e9aaa32313736c4093c7fe3fcba4ebd9", 
+      "name": ""
+    }
+  }, 
+  {
+    "pk": 4, 
+    "model": "places.gruser", 
+    "fields": {
+      "session_key": "8ec3918683c5a246b397f4cab14ae3df", 
+      "name": ""
+    }
+  }, 
+  {
+    "pk": 5, 
+    "model": "places.gruser", 
+    "fields": {
+      "session_key": "59f4da6f260adf9c69fac9eafbb60401", 
+      "name": ""
+    }
+  }, 
+  {
+    "pk": 1, 
+    "model": "places.grplace", 
+    "fields": {
+      "position": "POINT (45.0705620000000025 7.6866180000000002)", 
+      "user": 3, 
+      "time": "2011-09-18 10:43:00"
+    }
+  }, 
+  {
+    "pk": 2, 
+    "model": "places.grplace", 
+    "fields": {
+      "position": "POINT (45.0616410000000016 7.6749570000000000)", 
+      "user": 4, 
+      "time": "2011-09-18 10:55:33"
+    }
+  }, 
+  {
+    "pk": 3, 
+    "model": "places.grplace", 
+    "fields": {
+      "position": "POINT (45.0616649999999979 7.6749929999999997)", 
+      "user": 4, 
+      "time": "2011-09-18 11:11:55"
+    }
+  }, 
+  {
+    "pk": 4, 
+    "model": "places.grplace", 
+    "fields": {
+      "position": "POINT (45.0705620000000025 7.6866180000000002)", 
+      "user": 5, 
+      "time": "2011-09-19 12:49:29"
+    }
+  }, 
+  {
+    "pk": 5, 
+    "model": "places.grplace", 
+    "fields": {
+      "position": "POINT (45.0705620000000025 7.6866180000000002)", 
+      "user": 5, 
+      "time": "2011-09-19 12:50:41"
+    }
+  }, 
+  {
+    "pk": 6, 
+    "model": "places.grplace", 
+    "fields": {
+      "position": "POINT (45.0705620000000025 7.6866180000000002)", 
+      "user": 5, 
+      "time": "2011-09-19 12:51:10"
+    }
+  }, 
+  {
+    "pk": 1, 
+    "model": "places.georoom", 
+    "fields": {
+      "users": [
+        1, 
+        2, 
+        3, 
+        4
+      ], 
+      "idx": "GDill"
+    }
+  }, 
+  {
+    "pk": 2, 
+    "model": "places.georoom", 
+    "fields": {
+      "users": [
+        5
+      ], 
+      "idx": "5qtIR"
+    }
+  }
+]

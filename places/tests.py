@@ -5,6 +5,7 @@ from django.conf import settings
 from .models import GeoRoom, GRUser
 
 class SimpleTest(TestCase):
+    fixtures = ['georoom.json',]
     def _get_post_from_georoom(self, url, gr_id, session_key, data={}):
         """
         Do an ajax POSTrequest from a georoom (emulating a browser)
@@ -30,7 +31,7 @@ class SimpleTest(TestCase):
         gr = GeoRoom.objects.all()
         self.assertEqual(len(gr), old_gr_len + 1)
 
-        self.assertRedirects(response, reverse('gr', args=[gr[0].idx]))
+        self.assertRedirects(response, reverse('gr', args=[gr[old_gr_len].idx]))
 
         # and the user associated
         gu = GRUser.objects.all()
