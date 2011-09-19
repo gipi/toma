@@ -52,11 +52,42 @@ class SimpleTest(TestCase):
         self.failUnlessEqual(response.status_code, 405)
 
     def test_set_name(self):
-        response = self.client.post(
-                "/gr/name/", 
-                '{"name": "miao"}',
-                content_type="application/json")
+        name = "miao"
+        session_key = 'e9aaa32313736c4093c7fe3fcba4ebd9'
+
+        response = self._get_post_from_georoom(
+                reverse('gr-set-name'),
+                'GDill',
+                session_key,
+                '{"name": "%s"}' % name)
+
         self.failUnlessEqual(response.status_code, 200)
+        gruser = GRUser.objects.get(session_key=session_key)
+        self.failUnlessEqual(gruser.name, name)
+
+    def test_set_name_without_session(self):
+        name = "miao"
+        session_key = 'miao'
+
+        response = self._get_post_from_georoom(
+                reverse('gr-set-name'),
+                'GDill',
+                session_key,
+                '{"name": "%s"}' % name)
+
+        self.failUnlessEqual(response.status_code, 400)
+
+    def test_set_name_without_gr(self):
+        name = "miao"
+        session_key = 'e9aaa32313736c4093c7fe3fcba4ebd9'
+
+        response = self._get_post_from_georoom(
+                reverse('gr-set-name'),
+                'geppo',
+                session_key,
+                '{"name": "%s"}' % name)
+
+        self.failUnlessEqual(response.status_code, 400)
 
     def test_marker(self):
         response = self.client.get(reverse('gr-marker', args=['pino']))
