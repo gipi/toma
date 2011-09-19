@@ -173,8 +173,6 @@ def gr_marker(request, name):
     """
     import ImageFont, ImageDraw
 
-    print 'name:', name
-
     font = ImageFont.load_default()
     response = HttpResponse(mimetype='image/png')
     im = Image.new("RGBA", font.getsize(name), (255, 255, 255, 0))
