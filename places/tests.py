@@ -44,6 +44,15 @@ class SimpleTest(TestCase):
         response = self.client.get(reverse('gr', args=["12345"]))
         self.failUnlessEqual(response.status_code, 404)
 
+    def test_get_users(self):
+        session_key = 'e9aaa32313736c4093c7fe3fcba4ebd9'
+        response = self._get_post_from_georoom(
+                reverse('gr-users'),
+                'GDill',
+                session_key)
+
+        self.assertEqual(response.status_code, 200)
+
     def test_set_name_get(self):
         """
         Check that the GET method is not allowed here
