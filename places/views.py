@@ -32,7 +32,29 @@ def index(request):
         'content': render_to_string('places/waypoints.html', {'waypoints': waypoints}),
     }, context_instance=RequestContext(request))
 
+def get_gr_and_user_or_bad_response(request):
+    """
+    https://docs.djangoproject.com/en/dev/topics/http/views/#the-403-http-forbidden-view
 
+    http://chronosbox.org/blog/manipulando-erros-http-403-permissao-negada-no-django?lang=en
+    """
+    try:
+        referer = request.META['HTTP_REFERER']
+    except KeyError:
+        return None, None
+
+    pieces = urlparse(referer)[2].split('/')
+
+    if pieces[1] != "gr":
+        return None, None
+
+    # check if geo-room and user exist
+    try:
+        gr, gruser = get_room_and_user(pieces[2], request.session.session_key)
+    except ObjectDoesNotExist:
+        return None, None
+
+    return gr, gruser
 
 def gr(request, id):
     """
@@ -60,19 +82,15 @@ def gr(request, id):
 def gr_set_name(request):
     """
     Set the name of the user with the given session_key.
-
-    If the user doesn't exist then throw an error.
     """
     if request.method == "GET":
         return HttpResponseNotAllowed(['POST'])
 
-    # FIXME: understand if this is a security problem
-    data = simplejson.loads(request.raw_post_data)
-
-    try:
-        gruser = GRUser.objects.get(session_key=request.session.session_key)
-    except ObjectDoesNotExist, e:
+    gr, gruser = get_gr_and_user_or_bad_response(request)
+    if gr is None:
         return HttpResponseBadRequest()
+
+    data = simplejson.loads(request.raw_post_data)
 
     gruser.name = data["name"]
     gruser.save()
@@ -85,21 +103,10 @@ def gr_set_position(request):
     """
     Set the position of the user with the given session_key
     """
+    gr, gruser = get_gr_and_user_or_bad_response(request)
     try:
-        referer = request.META['HTTP_REFERER']
         position = request.POST['position']
     except KeyError:
-        return HttpResponseBadRequest()
-
-    pieces = urlparse(referer)[2].split('/')
-
-    if pieces[1] != "gr":
-        return HttpResponseBadRequest()
-
-    # check if geo-room and user exist
-    try:
-        gr, gruser = get_room_and_user(pieces[2], request.session.session_key)
-    except ObjectDoesNotExist:
         return HttpResponseBadRequest()
 
     p = position.split(":")
