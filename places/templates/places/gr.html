@@ -38,6 +38,8 @@
         <script type="text/javascript">
                 var gHandleY = 0;
                 var isOpened = false;
+                var gMarker = new Array();
+
                 // http://stackoverflow.com/questions/442404/dynamically-retrieve-html-element-x-y-position-with-javascript
                 function getOffset( el ) {
                     var _x = 0;
@@ -77,6 +79,7 @@
                         });
                         infowindow.open(map, marker);
 
+                        return marker;
                     }
                     if (navigator.geolocation) {
                         browserSupportFlag = true;
@@ -86,13 +89,36 @@
                                     addMarker(
                                         map,
                                         new google.maps.LatLng(position.coords.latitude, position.coords.longitude));
-                                }, function(err) {alert("Error: " + err.message)}, {
+                                    ajax.post(
+                                        '/gr/position/',
+                                        function(r) {alert('position: ' + r)},
+                                        "position="+position.coords.latitude+":"+position.coords.longitude);
+                                }, function(err) {alert("Error: " + err)}, {
                             enableHighAccuracy: true,
                             maximumAge: 30000,
                             timeout: 27000
                         });
                     }
                     gHandleY = getOffset(document.getElementById('handle')).top;
+                    setInterval(function() {
+                            ajax.post(
+                                '/gr/users/',
+                                function(r) {
+                                    var count = gMarker.length;
+                                    for (var cycle = 0 ; cycle < count ; cycle++) {
+                                        gMarker[cycle].setMap(null);
+                                    }
+
+                                    gMarker = new Array();
+
+                                    jr = JSON.parse(r);
+                                    var count = jr.length;
+                                    for (var cycle = 0 ; cycle < count ; cycle++) {
+                                        gMarker.push(addMarker(map,new google.maps.LatLng(jr[cycle][""][0], jr[cycle][""][1])));
+                                    }
+                                }, null);
+                    }, 5000);
+                }
                 }
                 function handleHandle() {
                         window.scrollTo(0, isOpened ? 0 : gHandleY);
