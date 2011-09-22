@@ -91,7 +91,7 @@
                                         new google.maps.LatLng(position.coords.latitude, position.coords.longitude));
                                     ajax.post(
                                         '/gr/position/',
-                                        function(r) {alert('position: ' + r)},
+                                        function(r) {},
                                         "position="+position.coords.latitude+":"+position.coords.longitude);
                                 }, function(err) {alert("Error: " + err)}, {
                             enableHighAccuracy: true,
