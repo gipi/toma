@@ -86,9 +86,9 @@
 
                         var watchID = navigator.geolocation.watchPosition(
                                 function(position) {
-                                    addMarker(
-                                        map,
-                                        new google.maps.LatLng(position.coords.latitude, position.coords.longitude));
+                                    var latLng = new google.maps.LatLng(position.coords.latitude, position.coords.longitude);
+                                    addMarker(map, latLng);
+                                    map.setCenter(latLng);
                                     ajax.post(
                                         '/gr/position/',
                                         function(r) {},
