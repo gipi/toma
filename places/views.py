@@ -185,7 +185,11 @@ def gr_marker(request, name):
     """
     import ImageFont, ImageDraw
 
-    font = ImageFont.load_default()
+    try:
+        font = ImageFont.truetype(settings.STATIC_ROOT + "/font.otf", 15)
+    except ImportError:
+        font = ImageFont.load_default()
+
     response = HttpResponse(mimetype='image/png')
     base = Image.open(settings.STATIC_ROOT + "/base_marker.png")
 

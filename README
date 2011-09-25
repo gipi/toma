@@ -1,3 +1,13 @@
+DIPENDENZE
+----------
+
+ + pil <http://www.pythonware.com/library/pil/>
+   # aptitude install libfreetype6-dev se si presenta il problema
+   "The _imagingft C module is not installed"
+   oppure editare setup.py e scrivere il path giusto per freetype
+
+       
+
 INSTALLAZIONE
 -------------
 
