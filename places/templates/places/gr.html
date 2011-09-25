@@ -63,10 +63,11 @@
                             document.getElementById("map_canvas"),
                             myOptions);
 
-                    function addMarker(map, location) {
+                    function addMarker(map, location, name) {
                         var marker = new google.maps.Marker({
                             position: location,
-                            title: "Hello World!"
+                            title: "Hello World!",
+                            icon: "/gr/marker/" + name + ".png"
                         });
 
                         // To add the marker to the map, call setMap();
@@ -87,7 +88,7 @@
                         var watchID = navigator.geolocation.watchPosition(
                                 function(position) {
                                     var latLng = new google.maps.LatLng(position.coords.latitude, position.coords.longitude);
-                                    addMarker(map, latLng);
+                                    addMarker(map, latLng, "Me");
                                     map.setCenter(latLng);
                                     ajax.post(
                                         '/gr/position/',

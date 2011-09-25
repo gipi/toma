@@ -187,11 +187,15 @@ def gr_marker(request, name):
 
     font = ImageFont.load_default()
     response = HttpResponse(mimetype='image/png')
-    im = Image.new("RGBA", font.getsize(name), (255, 255, 255, 0))
-    draw = ImageDraw.Draw(im)
-    draw.text((0,0), name, font=font, fill=(0,0,0))
+    base = Image.open(settings.STATIC_ROOT + "/base_marker.png")
 
-    im.save(response, "png")
+    draw = ImageDraw.Draw(base)
+    tw, th = draw.textsize(name)
+    iw, ih = base.size
+
+    draw.text((iw/2 - tw/2,ih/3 - th/2), name, font=font, fill=(0,0,0))
+
+    base.save(response, "png")
 
     return response
 
