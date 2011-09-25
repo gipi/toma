@@ -123,6 +123,10 @@
                         window.scrollTo(0, isOpened ? 0 : gHandleY);
                         isOpened = !isOpened;
                 }
+                function setName() {
+                    input = document.getElementById('name_input');
+                    ajax.post('/gr/name/', function(e) { console.log(e);}, '{"name": "' + input.value + '"}');
+                }
             </script>
         </head>
     <body onload="initialize()">
@@ -130,6 +134,11 @@
 	    <div id="handle" onclick="handleHandle()">handle</div>
 	    <div id="container_ui">
 		    <div>Some nice interface stuffs</div>
+		    <p>
+		      <label>Name</label>
+		      <input id="name_input" type="text" />
+		      <input type="submit" value="imposta name" onclick="setName()"/>
+		    </p>
 	    </div><!-- /end #container_ui -->
     </body>
 </html>
