@@ -53,6 +53,16 @@ Configurare il database nella seguente maniera
 	     }
 	}
 
+DATABASE
+--------
+
+ $ createuser -U postgres geouser -S -D -R
+ $ psql -U postgres -c "alter role geouser with password 'geopassword';"
+ $ createdb -U postgres -T template_postgis -O geouser geodatabase
+
+ $ python manage.py  sqlreset places | psql -U <db user> <dbname> -f -
+ $ python manage.py loaddata <fixture>
+
 
 PRINCIPI
 --------
