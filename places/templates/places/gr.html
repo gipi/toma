@@ -114,7 +114,7 @@
                                     jr = JSON.parse(r);
                                     var count = jr.length;
                                     for (var cycle = 0 ; cycle < count ; cycle++) {
-                                        gMarker.push(addMarker(map,new google.maps.LatLng(jr[cycle][""][0], jr[cycle][""][1])));
+                                        gMarker.push(addMarker(map,new google.maps.LatLng(jr[cycle]["lat"], jr[cycle]["lng"]),jr[cycle]["name"]));
                                     }
                                 }, null);
                     }, 15000);

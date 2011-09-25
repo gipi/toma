@@ -152,7 +152,7 @@ def gr_get_users(request):
     # get all the users in this georoom excluding the user doing the request
     grusers = gr.users.all().exclude(pk=gruser.pk)
 
-    users = [{x.name:[x.grplace_set.all()[0].position.x, x.grplace_set.all()[0].position.y]}
+    users = [{"name": x.name, "lat": x.grplace_set.all()[0].position.x, "lng": x.grplace_set.all()[0].position.y}
             for x in grusers
                 if len(x.grplace_set.all()) > 0]
 
