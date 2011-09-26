@@ -100,7 +100,28 @@ $(document).ready(function () {
 </head>
 <body onload='initialize()'>
     <img id="logo" src="{{STATIC_URL}}/logo.png">
-    <a href="{% url gr-new %}">crea una geostanza</a>
+    <ul id="navbar">
+            <li><a href="{% url gr-new %}">crea una geostanza</a></li>
+            <li>about</li>
+    </ul>
+    <div id="banner">
+        <p class="spot">
+        <img src="{{STATIC_URL}}/icon_man.png"/>
+        Perché non usare la tecnologia per migliorare la tua vita sociale? geolocalizzarsi è la strada!!!
+        </p>
+        <p class="spot">
+        <img src="{{STATIC_URL}}/icon_cellphone.png"/>
+        Perché non usare la tecnologia per migliorare la tua vita sociale? geolocalizzarsi è la strada!!!
+        </p>
+        <p class="spot">
+        <img src="{{STATIC_URL}}/icon_laptop.png"/>
+        Perché non usare la tecnologia per migliorare la tua vita sociale? geolocalizzarsi è la strada!!!
+        </p>
+        <p class="spot">
+        <img src="{{STATIC_URL}}/icon_drink.png"/>
+        Perché non usare la tecnologia per migliorare la tua vita sociale? geolocalizzarsi è la strada!!!
+        </p>
+    </div>
     <div id=map></div>
     <div id=waypoints>
         {{content}}

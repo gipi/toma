@@ -6,3 +6,29 @@ body {font-family: sans-serif}
 #logo {
 	height:50px;
 }
+
+/* NAVIGATION BAR */
+#navbar {
+	display:inline;
+	position:absolute;
+}
+#navbar li {
+        display:inline;
+	font-weight:bold;
+}
+
+#navbar li a {
+	text-decoration:none;
+}
+
+
+/* BANNER */
+p.spot {
+        float:left;
+        width:300px;
+}
+
+p.spot > img {
+        float:left;
+        margin:20px;
+}
