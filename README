@@ -10,17 +10,18 @@ You need to install various libraries system wide
 
 in a Debian system you can
 
- $ apt-get install libgeos-c1 libgdal1 python-virtualenv
+ $ apt-get install python-virtualenv python-dev libgeos-c1 libgdal1 libpq-dev postgresql-8.4-postgis
 
 Configurare il database nella seguente maniera
  
-	DATABASES = {
-	    'default': {
-		 'ENGINE': 'django.contrib.gis.db.backends.spatialite',
-		 'NAME': 'geodjango',
-		 'USER': 'geo',
-	     }
-	}
+    DATABASES = {
+        'default': {
+             'ENGINE': 'django.contrib.gis.db.backends.postgis',
+             'NAME': 'geodatabase',
+             'USER': 'geouser',
+             'PASSWORD': 'geopassword',
+         }
+    }
 
 DATABASE
 --------
@@ -68,3 +69,15 @@ and rebuild use
 
  $ cd home
  $ component build -v --out static --name home --prefix .
+
+VAGRANT
+-------
+
+In order to test al these stuffs you can use vagrant
+
+ $ vagrant up
+ $ git archive master --format tgz  | \
+    ssh vagrant@127.0.0.1 \
+        -p 2222 \
+        -i ~/.vagrant.d/insecure_private_key \
+    -C 'gunzip | tar x'
