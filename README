@@ -58,6 +58,7 @@ DATABASE
 
  $ createuser -U postgres geouser -S -D -R
  $ psql -U postgres -c "alter role geouser with password 'geopassword';"
+ $ ./create_template_postgis-debian.sh # copy of script from GeoDjango documentation
  $ createdb -U postgres -T template_postgis -O geouser geodatabase
 
  $ python manage.py  sqlreset places | psql -U <db user> <dbname> -f -
