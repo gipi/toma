@@ -23,7 +23,7 @@ then
     GEOGRAPHY=1
 fi
 
-createdb -E UTF8 template_postgis && \
+createdb -E UTF8 template_postgis -T template0 && \
 ( createlang -d template_postgis -l | grep plpgsql || createlang -d template_postgis plpgsql ) && \
 psql -d postgres -c "UPDATE pg_database SET datistemplate='true' WHERE datname='template_postgis';" && \
 psql -d template_postgis -f $POSTGIS_SQL_PATH/$POSTGIS_SQL && \
