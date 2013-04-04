@@ -1,8 +1,11 @@
+#psycopg2==2.4
+distribute==0.6.24
+django-extensions==1.1.1
 Django==1.3
 geopy==0.94.1
 gunicorn==0.12.1
-#psycopg2==2.4
-pysqlite
+PIL==1.1.7
+psycopg2==2.4.6
 simplejson==2.1.3
-wsgiref==0.1.2
-pil
+six==1.3.0
+verlib==0.1
