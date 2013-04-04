@@ -72,3 +72,12 @@ si usa la session_key contenuta nel cookie, mentre per identificare
 la geo-room da cui provengono le chiamate AJAX si usa l'header HTTP
 chiamato HTTP_REFERER. Utilizzando l'https la sicurezza dei dati
 comunicati dovrebbe essere preservata.
+
+HACKING
+-------
+
+The frontend is built using component, in order to customize things
+and rebuild use
+
+ $ cd home
+ $ component build -v --out static --name home --prefix .

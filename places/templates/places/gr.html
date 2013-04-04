@@ -2,24 +2,7 @@
     <head>
         <meta name="viewport"
 			content="initial-scale=1.0, user-scalable=no" content="width=device-width" />
-	<style>
-		#map_canvas {height:100%;}
-		#handle {
-			display:inline;
-			position:relative;
-			bottom:20px;
-			left:50%;
-			padding:10px;
-			background:#ffffff;
-		}
-
-		#container_ui {
-			/* the UI for various buttons occupies 
-			   as much space as the map (?)
-			*/
-			height:100%;
-		}
-	</style>
+            <link rel="stylesheet" href="{{STATIC_URL}}home.css" type="text/css"/>
         <script type="text/javascript" src="http://maps.google.com/maps/api/js?sensor=false"></script>
         <script>//http://code.google.com/p/miniajax/
                 function $(e){if(typeof e=='string')e=document.getElementById(e);return e};
@@ -133,13 +116,13 @@
         </head>
     <body onload="initialize()">
 	    <div id="map_canvas"></div>
-	    <div id="handle" onclick="handleHandle()">handle</div>
+	    <div id="handle" onclick="handleHandle()"><i class="icon-chevron-up"/></i></div>
 	    <div id="container_ui">
 		    <div>Some nice interface stuffs</div>
 		    <p>
 		      <label>Name</label>
 		      <input id="name_input" type="text" />
-		      <input type="submit" value="imposta name" onclick="setName()"/>
+		      <input class="btn btn-success" type="submit" value="imposta name" onclick="setName()"/>
 		    </p>
 	    </div><!-- /end #container_ui -->
     </body>

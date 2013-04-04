@@ -1,0 +1,8 @@
+{
+    "name": "toma",
+    "dependencies": {
+        "btknorr-bootstrap": "*"
+    },
+    "scripts": [],
+    "styles": ["toma.css"]
+}
