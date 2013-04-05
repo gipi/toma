@@ -1,5 +1,5 @@
  $ virtualenv env
- $ env/bin/activate
+ $ source env/bin/activate
  (env) $ pip install requirements.txt
  (env) $ wget http://www.gaia-gis.it/spatialite/init_spatialite-2.3.sql.gz
  (env) $ gunzip init_spatialite-2.3.sql.gz
