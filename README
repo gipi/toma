@@ -10,7 +10,7 @@ You need to install various libraries system wide
 
 in a Debian system you can
 
- $ apt-get install python-virtualenv python-dev libgeos-c1 libgdal1 libpq-dev postgresql-8.4-postgis
+ $ apt-get install python-virtualenv python-dev libgeos-c1 libgdal1-1.6.0 libpq-dev postgresql-8.4-postgis
 
 Configurare il database nella seguente maniera
  
