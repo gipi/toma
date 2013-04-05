@@ -14,7 +14,7 @@ import simplejson
 import itertools
 import tempfile
 import os
-from PIL import Image
+from PIL import Image, ImageFont, ImageDraw
 # The urlparse module is renamed to urllib.parse in Python 3.0.
 # The 2to3 tool will automatically adapt imports when converting your sources to 3.0.
 from urlparse import urlparse
@@ -183,8 +183,6 @@ def gr_marker(request, name):
     """
     Create a marker with the user name
     """
-    import ImageFont, ImageDraw
-
     try:
         font = ImageFont.truetype(settings.STATIC_ROOT + "/font.otf", 15)
     except ImportError:
