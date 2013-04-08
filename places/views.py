@@ -99,7 +99,7 @@ def gr_set_name(request):
     if gr is None:
         return HttpResponseBadRequest()
 
-    data = simplejson.loads(request.raw_post_data)
+    data = simplejson.loads(request.body)
 
     gruser.name = data["name"]
     gruser.save()

@@ -1,5 +1,5 @@
 # Import django modules
-from django.conf.urls.defaults import *
+from django.conf.urls import *
 from django.contrib import admin
 # Import custom modules
 import settings
