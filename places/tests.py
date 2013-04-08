@@ -8,7 +8,7 @@ class SimpleTest(TestCase):
     fixtures = ['georoom.json',]
     def _get_post_from_georoom(self, url, gr_id, session_key, data={}):
         """
-        Do an ajax POSTrequest from a georoom (emulating a browser)
+        Do an ajax POST request from a georoom (emulating a browser)
         and return a response.
         """
         # this is needed in order to set the session_key correctly
@@ -107,3 +107,4 @@ class SimpleTest(TestCase):
         response = self.client.get(reverse('gr', args=[gr.idx]))
 
         self.assertEqual(response.status_code, 200)
+
