@@ -1,8 +1,11 @@
 {
-    "name": "toma",
-    "dependencies": {
-        "btknorr-bootstrap": "*"
-    },
-    "scripts": [],
-    "styles": ["toma.css"]
+  "name": "toma",
+  "dependencies": {
+    "btknorr-bootstrap": "*",
+    "forbeslindesay/ajax": "*"
+  },
+  "scripts": [],
+  "styles": [
+    "toma.css"
+  ]
 }
