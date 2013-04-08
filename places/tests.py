@@ -101,3 +101,9 @@ class SimpleTest(TestCase):
     def test_marker(self):
         response = self.client.get(reverse('gr-marker', args=['pino']))
         self.failUnlessEqual(response.status_code, 200)
+
+    def test_new_user_into_prexisting_room(self):
+        gr = GeoRoom.objects.get(pk=1)
+        response = self.client.get(reverse('gr', args=[gr.idx]))
+
+        self.assertEqual(response.status_code, 200)

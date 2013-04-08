@@ -67,8 +67,15 @@ def gr(request, id):
     otherwise register inside it.
     """
     gr = get_object_or_404(GeoRoom, idx=id)
-    # FIXME: if you get here for the first time you don't have a session key
-    # TODO: write a test about this
+    if not request.session.session_key:
+        # if the user came for the first time then she doesn't have any cookie
+        # and session_key configured
+        # see <https://docs.djangoproject.com/en/1.4/topics/http/sessions/#using-sessions-out-of-views>
+        from django.contrib.sessions.backends.db import SessionStore
+        s = SessionStore()
+        s.save()
+        request.session = s
+
     gruser, created = GRUser.objects.get_or_create(
             session_key=request.session.session_key,
         )
