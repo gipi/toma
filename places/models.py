@@ -17,7 +17,7 @@ class GRUser(models.Model):
     session_key = models.CharField(max_length=40)
 
     def __unicode__(self):
-	    return '%s' % self.session_key
+	    return '%s (%s)' % (self.name, self.session_key,)
 
 class GRPlace(models.Model):
     """
