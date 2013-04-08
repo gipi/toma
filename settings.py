@@ -146,3 +146,4 @@ except:
 # this is necessary otherwise anonymous users
 # haven't an unique session_key
 SESSION_SAVE_EVERY_REQUEST = True
+SESSION_COOKIE_HTTPONLY = True
