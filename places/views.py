@@ -67,6 +67,8 @@ def gr(request, id):
     otherwise register inside it.
     """
     gr = get_object_or_404(GeoRoom, idx=id)
+    # FIXME: if you get here for the first time you don't have a session key
+    # TODO: write a test about this
     gruser, created = GRUser.objects.get_or_create(
             session_key=request.session.session_key,
         )
