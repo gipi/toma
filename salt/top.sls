@@ -2,3 +2,4 @@ base:
     '*':
         - requirements
         - nginx
+        - gunicorn
