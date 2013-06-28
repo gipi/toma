@@ -7,7 +7,6 @@ packages:
             - libgeos-c1
             - libgdal1-1.6.0
             - postgresql-8.4-postgis
-            - nginx
 
 /etc/postgresql/8.4/main/pg_hba.conf:
     file.patch:
