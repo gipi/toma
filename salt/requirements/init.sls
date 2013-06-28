@@ -64,3 +64,7 @@ create db:
 /var/www/toma/env:
     virtualenv.managed:
         - requirements: salt://requirements.txt
+
+/var/www/toma/local_settings.py:
+    file.managed:
+        - source: salt://local_settings.py
